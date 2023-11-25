@@ -8,6 +8,7 @@ C_SRCS += \
 ../Core/Src/cooperative_scheduler.c \
 ../Core/Src/cooperative_scheduler_O(1).c \
 ../Core/Src/main.c \
+../Core/Src/software_timer.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
 ../Core/Src/syscalls.c \
@@ -18,6 +19,7 @@ OBJS += \
 ./Core/Src/cooperative_scheduler.o \
 ./Core/Src/cooperative_scheduler_O(1).o \
 ./Core/Src/main.o \
+./Core/Src/software_timer.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
 ./Core/Src/syscalls.o \
@@ -28,6 +30,7 @@ C_DEPS += \
 ./Core/Src/cooperative_scheduler.d \
 ./Core/Src/cooperative_scheduler_O(1).d \
 ./Core/Src/main.d \
+./Core/Src/software_timer.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
 ./Core/Src/syscalls.d \

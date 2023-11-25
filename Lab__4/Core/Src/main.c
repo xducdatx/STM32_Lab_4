@@ -19,7 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cooperative_scheduler.h"
+#include "software_timer.h"
+#include "cooperative_scheduler_O(1).h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -92,6 +93,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   SCH_Init();
+  setTimer1(1);
   SCH_Add_Task(toggle_led_red, 0, 100);
   SCH_Add_Task(toggle_led_green, 0, 200);
   /* USER CODE END 2 */
@@ -101,7 +103,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  SCH_Dispatch_Tasks();
+	  if (timer1_flag == 1) // 10ms gọi 1 lần
+	  {
+		  SCH_Dispatch_Tasks();
+		  setTimer1(1);
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -215,6 +221,7 @@ static void MX_GPIO_Init(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	SCH_Update();
+	timer1Run();
 }
 void toggle_led_red(void)
 {
