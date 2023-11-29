@@ -19,8 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "software_timer.h"
 #include "cooperative_scheduler_O(1).h"
+#include "software_timer.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -54,6 +54,10 @@ static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 void toggle_led_red(void);
 void toggle_led_green(void);
+void toggle_led_yellow(void);
+void toggle_led_red2(void);
+void toggle_led_green2(void);
+void toggle_led_yellow2(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -94,8 +98,12 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim2);
   SCH_Init();
   setTimer1(1);
-  SCH_Add_Task(toggle_led_red, 0, 100);
-  SCH_Add_Task(toggle_led_green, 0, 200);
+  SCH_Add_Task(toggle_led_red, 0, 50);
+  SCH_Add_Task(toggle_led_green, 0, 100);
+  SCH_Add_Task(toggle_led_yellow, 0, 150);
+  SCH_Add_Task(toggle_led_red2, 0, 200);
+  SCH_Add_Task(toggle_led_green2, 0, 250);
+  SCH_Add_Task(toggle_led_yellow2, 0, 300);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,7 +111,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  if (timer1_flag == 1) // 10ms gọi 1 lần
+	  if (timer1_flag == 1)
 	  {
 		  SCH_Dispatch_Tasks();
 		  setTimer1(1);
@@ -206,10 +214,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin|LED_RED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin|LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN2_Pin
+                          |LED_RED2_Pin|LED_YELLOW2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_GREEN_Pin LED_RED_Pin */
-  GPIO_InitStruct.Pin = LED_GREEN_Pin|LED_RED_Pin;
+  /*Configure GPIO pins : LED_GREEN_Pin LED_RED_Pin LED_YELLOW_Pin LED_GREEN2_Pin
+                           LED_RED2_Pin LED_YELLOW2_Pin */
+  GPIO_InitStruct.Pin = LED_GREEN_Pin|LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN2_Pin
+                          |LED_RED2_Pin|LED_YELLOW2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -230,6 +241,22 @@ void toggle_led_red(void)
 void toggle_led_green(void)
 {
 	HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+}
+void toggle_led_yellow(void)
+{
+	HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+}
+void toggle_led_red2(void)
+{
+	HAL_GPIO_TogglePin(LED_RED2_GPIO_Port, LED_RED2_Pin);
+}
+void toggle_led_green2(void)
+{
+	HAL_GPIO_TogglePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin);
+}
+void toggle_led_yellow2(void)
+{
+	HAL_GPIO_TogglePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin);
 }
 /* USER CODE END 4 */
 
