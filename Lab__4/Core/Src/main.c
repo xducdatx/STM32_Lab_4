@@ -57,7 +57,7 @@ void toggle_led_green(void);
 void toggle_led_yellow(void);
 void toggle_led_red2(void);
 void toggle_led_green2(void);
-void toggle_led_yellow2(void);
+void led_on_yellow2(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -104,7 +104,7 @@ int main(void)
   SCH_Add_Task(toggle_led_yellow, 0, 150);
   SCH_Add_Task(toggle_led_red2, 0, 200);
   SCH_Add_Task(toggle_led_green2, 0, 250);
-  SCH_Add_Task(toggle_led_yellow2, 300, 0);
+  SCH_Add_Task(led_on_yellow2, 300, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -255,7 +255,7 @@ void toggle_led_green2(void)
 {
 	HAL_GPIO_TogglePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin);
 }
-void toggle_led_yellow2(void)
+void led_on_yellow2(void)
 {
 //	HAL_GPIO_TogglePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin);
 	HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, 1);
