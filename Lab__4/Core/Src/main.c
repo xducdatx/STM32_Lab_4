@@ -98,12 +98,13 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim2);
   SCH_Init();
   setTimer1(1);
+  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, 0);
   SCH_Add_Task(toggle_led_red, 0, 50);
   SCH_Add_Task(toggle_led_green, 0, 100);
   SCH_Add_Task(toggle_led_yellow, 0, 150);
   SCH_Add_Task(toggle_led_red2, 0, 200);
   SCH_Add_Task(toggle_led_green2, 0, 250);
-  SCH_Add_Task(toggle_led_yellow2, 0, 300);
+  SCH_Add_Task(toggle_led_yellow2, 300, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -256,7 +257,8 @@ void toggle_led_green2(void)
 }
 void toggle_led_yellow2(void)
 {
-	HAL_GPIO_TogglePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin);
+//	HAL_GPIO_TogglePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin);
+	HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, 1);
 }
 /* USER CODE END 4 */
 
